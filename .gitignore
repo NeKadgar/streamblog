@@ -1,0 +1,6 @@
+.idea
+dumps
+.pgdata
+*.pyc
+media/
+node_modules

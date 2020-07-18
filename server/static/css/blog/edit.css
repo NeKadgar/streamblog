@@ -1,0 +1,15 @@
+
+.editor {
+    margin-top: 70px;
+}
+.editor__title {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    width: 70%;
+    height: 50px;
+    font-size: 30px;
+    border: none;
+    outline:none;
+    margin-bottom: 30px;
+}

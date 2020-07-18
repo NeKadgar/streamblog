@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<link href="{% static "css/members/login.css" %}" rel="stylesheet">
+<div class="login">
+    <div class="cont {% if sign_up %}s-signup{% endif %}" id="login">
+        <div class="form sign-in">
+            <form method="post" name="sign-in">
+                {% csrf_token %}
+                <div class="login-h2">С возвращением!</div>
+                {% if error %}
+                <div class="login__error">{{ error }}</div>
+                {% endif %}
+                <label>
+                    <span>Email</span>
+                    <input type="email" name="email">
+                </label>
+                <label>
+                    <span>Пароль</span>
+                    <input type="password" name="password">
+                </label>
+                <button class="submit" type="submit" name="sign-in">Sign In</button>
+            </form>
+            <p class="forgot-pass">Забыли пароль?</p>
+
+            <div class="social-media">
+                <ul>
+                    <li><img src="images/facebook.png"></li>
+                    <li><img src="images/twitter.png"></li>
+                    <li><img src="images/linkedin.png"></li>
+                    <li><img src="images/instagram.png"></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="sub-cont">
+            <div class="img">
+                <div class="img-text m-up">
+                    <div class="login-h2">New here?</div>
+                    <p>Sign up and discover great amount of new opportunities!</p>
+                </div>
+                <div class="img-text m-in">
+                    <div class="login-h2">One of us?</div>
+                    <p>If you already has an account, just sign in. We've missed you!</p>
+                </div>
+                <div class="img-btn">
+                    <span class="m-up">Sign Up</span>
+                    <span class="m-in">Sign In</span>
+                </div>
+            </div>
+            <div class="form sign-up">
+                <form method="post" name="sign-up">
+                    {% csrf_token %}
+                    <div class="login-h2">Присоединиться</div>
+                    {% if error_signup %}
+                    <div class="login__error">{{ error_signup }}</div>
+                    {% endif %}
+                    <label>
+                        <span>Name</span>
+                        <input type="text" name="name">
+                    </label>
+                    <label>
+                        <span>Email</span>
+                        <input type="email" name="email">
+                    </label>
+                    <label>
+                        <span>Password</span>
+                        <input type="password" name="password">
+                    </label>
+                    <label>
+                        <span>Confirm Password</span>
+                        <input type="password" name="confirm_password">
+                    </label>
+                    <button type="submit" class="submit" name="sign-up">Sign Up Now</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block domready %}
+var origin = window.location.origin;
+console.log(origin)
+document.querySelector('.img-btn').addEventListener('click', function()
+{
+    document.querySelector('.cont').classList.toggle('s-signup')
+}
+);
+ console.log("oh friend u are gay");
+
+jQuery(document).click(function(e) {
+var target = $(".login"); //target div recorded
+if (!$(target).is('#login') ) {
+console.log("oh friend u are gay");
+}
+})
+
+{% endblock %}

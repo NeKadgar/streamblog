@@ -1,0 +1,71 @@
+@import url(//maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css);
+@import url(http://fonts.googleapis.com/css?family=Titillium+Web&subset=latin,latin-ext);
+.searchbar{
+   margin-bottom: auto;
+   margin-top: auto;
+   height: 60px;
+   background-color: #f8f9fa;
+   border-radius: 30px;
+   padding: 10px;
+   justify-content: center;
+ }
+ .search_input{
+   color: white;
+   border: 0;
+   outline: 0;
+   background: none;
+   width: 0;
+   caret-color:transparent;
+   line-height: 40px;
+   transition: width 0.4s linear;
+   background-color: white;
+   border-radius: 30px 0 0 30px;
+   color: black;
+ }
+ .searchbar> .search_input{
+   padding: 0 10px;
+   width: 200px;
+   transition: width 0.4s linear;
+ }
+ .searchbar > .search_icon{
+   background: white;
+   color: black;
+ }
+ .navbar-form{
+    justify-content: center;
+ }
+ .search_icon{
+   height: 40px;
+   width: 40px;
+   float: right;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+   border-radius: 50%;
+   color:black;
+   text-decoration:none;
+   border-radius:0 30px 30px 0;
+ }
+@media (max-width: 600px){
+  .big-poster{
+    min-width: 100%;
+    margin-bottom: 30px;
+  }
+  .sm-poster{
+    min-width: 340px;
+    margin-left: 20px;
+    margin-bottom: 30px;
+  }
+  .col-8{
+      min-width:100%;
+      margin-left: 20px;
+  }
+  .col-4{
+      min-width:100%;
+  }
+  .searchbar{
+    width: 100%
+  }
+}
+
+}

@@ -2,6 +2,8 @@ from django.http import HttpResponse
 from django.shortcuts import render
 from django.views import View
 from members.session_profile import SessionProfile
+from blog.models import Post
+import json
 
 # Create your views here.
 
@@ -16,7 +18,10 @@ class EditPostView(View):
         return render(request, "blog/edit.html")
 
     def post(self, request):
-        print(request.POST)
+        data = json.loads(request.POST["json"])
+        post = Post(title=data["title"], content=data["content"], author=request.user)
+        post.save()
+        return render(request, "blog/edit.html")
 
 def image_upload(request, *args, **kwargs):
     print(request)

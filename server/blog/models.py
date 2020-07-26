@@ -24,10 +24,7 @@ class Post(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug = unique_slugify(self.title)
+        super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
-
-class Image(models.Model):
-    post = models.ForeignKey(Post, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to="posts/")

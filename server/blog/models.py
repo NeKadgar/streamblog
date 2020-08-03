@@ -4,6 +4,7 @@ from taggit.managers import TaggableManager
 from .utils import unique_slugify
 from editorjs_field.fields import EditorJSField
 
+
 # Create your models here.
 
 class Post(models.Model):
@@ -28,3 +29,11 @@ class Post(models.Model):
 
     def __str__(self):
         return self.title
+
+
+class Image(models.Model):
+    image = models.ImageField(upload_to="posts/images/")
+    author = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.image.url

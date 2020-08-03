@@ -10,6 +10,7 @@
 {% block content %}
 <div class="container ">
     <form method="post" name="qwe">
+		{% csrf_token %}
         <input type="text" name="title" placeholder="Заголовок..." id="post-title" class="editor__title">
         <div id="editorjs" name="content"></div>
     </form>
@@ -37,9 +38,41 @@
 {% block domready %}
 const saveButton = document.getElementById('saveButton');
 
+
 const editor = new EditorJS({
 	holder: 'editorjs',
 	tools: {
+        image: {
+      class: ImageTool,
+      config: {
+        uploader: {
+          /**
+           * Upload file to the server and return an uploaded image data
+           * @param {File} file - file selected from the device or pasted by drag-n-drop
+           * @return {Promise.<{success, file: {url}}>}
+           */
+          uploadByFile(file){
+        var fd = new FormData();
+        fd.append('image',file);
+            // your own uploading logic here
+            return $.ajax({
+                url: '{% url "blog:upload_image" %}',
+                type: 'post',
+                data: fd,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    return 1
+                },
+            })
+          },
+        },
+        endpoints: {
+          byFile: 'http://localhost:8000/upload_image/', // Your backend file uploader endpoint
+          byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+        }
+      }
+    },
 		header: Header,
 	    list: {
 	      class: List,

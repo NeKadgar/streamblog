@@ -10,7 +10,7 @@ def unique_slugify(title):
 
 def convert_editorjs_to_html(json):
     html = ""
-    for block in json:
+    for block in json["blocks"]:
         if block["type"] == "paragraph":
             html += "<p class='ce-paragraph cdx-block'>{}</p>".format(block["data"]["text"])
         elif block["type"] == "header":
@@ -50,3 +50,8 @@ def convert_editorjs_to_html(json):
                     )
 
     return html
+
+
+def get_presave_info(content):
+    print(content)
+    return 1,2

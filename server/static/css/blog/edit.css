@@ -1,4 +1,3 @@
-
 .editor {
     margin-top: 70px;
 }
@@ -12,4 +11,49 @@
     border: none;
     outline:none;
     margin-bottom: 30px;
+}
+.save_post {
+    z-index:10000;
+    width: 100%;
+    top: 0;
+    position: absolute;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: -webkit-linear-gradient(left, #ffffff, #0000004a);
+    font-family: 'Nunito', sans-serif;
+}
+.popup_form {
+    overflow: hidden;
+    position: relative;
+    width: 900px;
+    background: #fff;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    text-align: center;
+    padding: 30px;
+}
+.presave {
+    display: flex;
+    text-align: left;
+}
+.preview__image {
+    background-color: grey;
+    width:100%;
+    height: 200px;
+}
+.preview {
+    width: 50%;
+    padding: 15px;
+}
+.tags {
+    width: 50%;
+    padding: 15px;
+}
+.preview input {
+    width: 100%;
+}
+.preview textarea {
+    width: 100%;
+    min-height: 100px;
 }

@@ -1,0 +1,26 @@
+{% load static %}
+<link href="{% static "css/blog/edit.css" %}" rel="stylesheet">
+<div class="save_post">
+    <div class="popup_form">
+        <h1 style="float: right; cursor: pointer;">&times;</h1>
+        <h2>Почти готово</h2>
+        <div class="presave">
+            <div class="preview">
+                <div class="preview__image">
+                </div>
+                <input type="file" name="img" accept="image/jpeg,image/png,image/gif">
+                <div class="preview__title">
+                    <h3>Заголовок:</h3>
+                    <input type="text" value="{{ title }}">
+                </div>
+                <div class="preview__desc">
+                    <h3>Описание:</h3>
+                    <textarea></textarea>
+                </div>
+            </div>
+            <div class="tags">
+                123
+            </div>
+        </div>
+    </div>
+</div>

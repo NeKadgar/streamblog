@@ -8,10 +8,10 @@
 
 
 {% block content %}
-<div class="container ">
+<div class="container editor">
     <form method="post" name="qwe">
 		{% csrf_token %}
-        <input type="text" name="title" placeholder="Заголовок..." id="post-title" class="editor__title">
+        <input type="text" name="title" placeholder="Заголовок..." id="post-title" class="editor__title ce-block__content">
         <div id="editorjs" name="content"></div>
     </form>
 		<button id="saveButton">Save</button>
@@ -68,7 +68,7 @@ const editor = new EditorJS({
           },
         },
         endpoints: {
-          byFile: 'http://localhost:8000/upload_image/', // Your backend file uploader endpoint
+          byFile: '{% url "blog:upload_image" %}', // Your backend file uploader endpoint
           byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
         }
       }
@@ -117,7 +117,6 @@ const editor = new EditorJS({
 });
 saveButton.addEventListener('click', function () {
       editor.save().then((savedData) => {
-		console.log(savedData);
 		var title = $("#post-title").val();
 		$.ajax({
         url: '',
@@ -126,9 +125,14 @@ saveButton.addEventListener('click', function () {
 			"title": title,
             "content": savedData,
         })},
-        dataType: 'json'
-    });
-
+        statusCode: {
+            200: function(msg) {
+                $("#popup").append(msg.responseText);
+                console.log(msg.responseText);
+            }
+        },
+        dataType: 'json',
+        });
       });
     });
 

@@ -2,7 +2,7 @@ from django.db import models
 from django.contrib.auth.models import User
 from taggit.managers import TaggableManager
 from .utils import unique_slugify
-from editorjs_field.fields import EditorJSField
+import jsonfield
 
 
 # Create your models here.
@@ -14,9 +14,9 @@ class Post(models.Model):
         (DRAFT, 'Draft'),
         (PUBLISHED, 'Published'),
     )
-    title = models.CharField(max_length=250)
-    content = models.TextField()
-    slug = models.SlugField(unique=True)
+    title = models.CharField(max_length=230)
+    content = jsonfield.JSONField()
+    slug = models.SlugField(unique=True, max_length=255)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     tags = TaggableManager(blank=True)
     created = models.DateTimeField(auto_now_add=True)

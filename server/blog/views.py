@@ -1,5 +1,5 @@
 from django.http import HttpResponse
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import View
 from django.shortcuts import get_object_or_404
 from members.session_profile import SessionProfile
@@ -22,11 +22,24 @@ class EditPostView(View):
         return render(request, "blog/edit.html")
 
     def post(self, request):
-        data = json.loads(request.POST["json"])
-        post = Post(title=data["title"], content=data["content"], author=request.user)
-        # post.save()
-        desc, image = get_presave_info(post.content)
-        return render(request, "blog/save-post.html", {"title": post.title})
+        if "final_save" in request.POST:
+            id = request.POST.get("post_id", None)
+            title = request.POST.get("title", None)
+            description = request.POST.get("description", None)
+            tags = request.POST.get("tags", None)
+            if id and title and description and tags:
+                post = get_object_or_404(Post, id=id, author=request.user)
+                post.title = title
+                post.description = description
+                post.tags.add(tags.split(","))
+                post.save()
+            return redirect("/")
+        else:
+            data = json.loads(request.POST["json"])
+            post = Post(title=data["title"], content=data["content"], author=request.user)
+            post.save()
+            desc, image = get_presave_info(post.content)
+            return render(request, "blog/save-post.html", {"title": post.title, "post_id": post.id})
 
 
 def create_post(request):

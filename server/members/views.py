@@ -35,7 +35,6 @@ class LoginView(View):
             email = request.POST["email"]
             password = request.POST["password"]
             user = authenticate(username=email, password=password)
-            print("qwe")
             if user:
                 login(request, user)
             else:

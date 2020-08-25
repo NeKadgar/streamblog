@@ -14,7 +14,7 @@
         <input type="text" name="title" placeholder="Заголовок..." id="post-title" class="editor__title ce-block__content">
         <div id="editorjs" name="content"></div>
     </form>
-		<button id="saveButton">Save</button>
+    <button id="saveButton">Save</button>
 </div>
 {% endblock %}
 
@@ -128,12 +128,10 @@ saveButton.addEventListener('click', function () {
         statusCode: {
             200: function(msg) {
                 $("#popup").append(msg.responseText);
-                console.log(msg.responseText);
             }
         },
         dataType: 'json',
         });
       });
     });
-
 {% endblock %}

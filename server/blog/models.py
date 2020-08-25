@@ -16,6 +16,7 @@ class Post(models.Model):
     )
     title = models.CharField(max_length=230)
     content = jsonfield.JSONField()
+    description = models.TextField(max_length=255)
     slug = models.SlugField(unique=True, max_length=255)
     author = models.ForeignKey(User, on_delete=models.CASCADE, related_name='blog_posts')
     tags = TaggableManager(blank=True)

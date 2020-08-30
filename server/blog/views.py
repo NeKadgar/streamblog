@@ -28,10 +28,12 @@ class EditPostView(View):
             description = request.POST.get("description", None)
             tags = request.POST.get("tags", None)
             if id and title and description and tags:
+                print(312)
                 post = get_object_or_404(Post, id=id, author=request.user)
                 post.title = title
                 post.description = description
-                post.tags.add(tags.split(","))
+                for tag in tags.split(","):
+                    post.tags.add(tag)
                 post.save()
             return redirect("/")
         else:

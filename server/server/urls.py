@@ -22,6 +22,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include("members.urls")),
     path('', include("blog.urls")),
+    path('api/fishbot/', include("fishbot.urls")),
 ]
 
 if settings.DEBUG:

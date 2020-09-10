@@ -1,19 +1,26 @@
 from django.http import JsonResponse
 from .models import Subscribtion, UserAction, TelegramToken
-from django.utils import timezone
 import datetime
+from django.utils import timezone
 
 # Create your views here.
 
 
 def user_action(request, token):
     sub = Subscribtion.objects.filter(token=token, active=True).first()
+    if sub.start < timezone.now() < sub.end:
+        pass
+    else:
+        user = sub
+        user.active = False
+        user.save()
+        return JsonResponse(
+            {"status": 0, "message": "Время подписки вышло"})
     ip = request.body.decode("utf-8")
     if sub:
-        created_time = datetime.datetime.now() - datetime.timedelta(minutes=30)
-        actions = UserAction.objects.filter(user=sub.user, time__lte=created_time).order_by('-pk')
-        print(actions)
-        if actions:
+        created_time = timezone.now() - datetime.timedelta(minutes=60)
+        actions = UserAction.objects.filter(user=sub.user).order_by('-pk')
+        if actions and actions[0].time > created_time:
             last_action = actions[0]
             if last_action.ip == ip:
                 UserAction(user=sub.user, ip=ip).save()

@@ -7,7 +7,7 @@ from django.utils import timezone
 
 
 def user_action(request, token):
-    sub = Subscribtion.objects.filter(token=token, active=True).first()
+    sub = Subscribtion.objects.filter(token=token).first()
     if sub.start < timezone.now() < sub.end:
         pass
     else:
@@ -17,6 +17,7 @@ def user_action(request, token):
         return JsonResponse(
             {"status": 0, "message": "Время подписки вышло"})
     ip = request.body.decode("utf-8")
+    sub = Subscribtion.objects.filter(token=token, active=True).first()
     if sub:
         created_time = timezone.now() - datetime.timedelta(minutes=60)
         actions = UserAction.objects.filter(user=sub.user).order_by('-pk')
@@ -26,9 +27,9 @@ def user_action(request, token):
                 UserAction(user=sub.user, ip=ip).save()
                 return JsonResponse({"status": 1, "message": "OK"})
             else:
-                user = sub
-                user.active = False
-                user.save()
+                # user = sub
+                # user.active = False
+                # user.save()
                 return JsonResponse(
                     {"status": 0, "message": "Аккаунт заморожен из-за использования на нескольких устройствах"})
         UserAction(user=sub.user, ip=ip).save()

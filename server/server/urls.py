@@ -23,6 +23,7 @@ urlpatterns = [
     path('users/', include("members.urls")),
     path('', include("blog.urls")),
     path('api/fishbot/', include("fishbot.urls")),
+    path('api/classifier/', include("classifier.urls")),
 ]
 
 if settings.DEBUG:

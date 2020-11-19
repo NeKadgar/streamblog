@@ -5,6 +5,19 @@ from django.utils import timezone
 
 # Create your views here.
 
+def check_status(request, token):
+    subscibtion = Subscribtion.objects.filter(token=token).first()
+    if subscibtion:
+        if subscibtion.start < timezone.now() < subscibtion.end:
+            pass
+        else:
+            subscibtion.active = False
+            subscibtion.save()
+        return JsonResponse(
+            {"sub_status": subscibtion.active, "message": "OK", "sub_time": subscibtion.end.strftime('%d.%m.%Y %H:%M')})
+    else:
+        return JsonResponse(
+            {"sub_status": False, "message": "Incorrect token", "sub_time": "..."})
 
 def user_action(request, token):
     sub = Subscribtion.objects.filter(token=token).first()
@@ -16,7 +29,8 @@ def user_action(request, token):
         user.save()
         return JsonResponse(
             {"status": 0, "message": "Время подписки вышло"})
-    ip = request.body.decode("utf-8")
+    body = request.body.decode("utf-8")
+    ip = ""
     sub = Subscribtion.objects.filter(token=token, active=True).first()
     if sub:
         created_time = timezone.now() - datetime.timedelta(minutes=60)

@@ -47,9 +47,9 @@ def user_action(request, token):
                 UserAction(user=sub.user, ip=ip).save()
                 return JsonResponse({"status": 1, "message": "OK"})
             else:
-                user = sub
-                user.active = False
-                user.save()
+                # user = sub
+                # user.active = False
+                # user.save()
                 return JsonResponse(
                     {"status": 0, "message": "Аккаунт заморожен из-за использования на нескольких устройствах"})
         UserAction(user=sub.user, ip=ip).save()

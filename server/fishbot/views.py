@@ -40,11 +40,7 @@ def user_action(request, token):
     sub = Subscribtion.objects.filter(token=token, active=True).first()
     if sub:
         created_time = timezone.now() - datetime.timedelta(minutes=60)
-        five_minutes = timezone.now() - datetime.timedelta(minutes=5)
         actions = UserAction.objects.filter(user=sub.user).order_by('-pk')
-        if actions and actions[0].time < five_minutes:
-            message = actions.user.username + " check this user!!!"
-            send_telegram_message(message)
         if actions and actions[0].time > created_time:
             last_action = actions[0]
             if last_action.ip == ip:

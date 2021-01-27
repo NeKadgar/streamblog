@@ -1,3 +1,4 @@
+from django.contrib.auth.models import User
 from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from django.views import View
@@ -18,6 +19,8 @@ from members.utils import is_image_correct
 
 class MainPage(View):
     def get(self, request):
+        for user in User.objects.all():
+            Profile.objects.get_or_create(user=user)
         from_date = datetime.datetime.now() - datetime.timedelta(days=7)
 
         trends_posts = Post.objects.filter(created__range=[from_date, datetime.datetime.now()]).order_by("-post_views")[:8]

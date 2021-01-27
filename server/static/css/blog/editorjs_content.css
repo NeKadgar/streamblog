@@ -1,3 +1,12 @@
+.author__info {
+    display: flex;
+    margin-bottom: 30px;
+    margin-top: 80px;
+}
+.author__img img{
+    border-radius: 50%;
+    margin-right: 10px;
+}
 .title {
     line-height: 48px;
     font-size: 30px;

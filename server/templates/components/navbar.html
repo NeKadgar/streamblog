@@ -18,9 +18,9 @@
                 </div>
                 {% if not request.user.is_anonymous %}
                 <div>
-                    <button class="btn" style='color:green' type="submit">Профиль</button>
-                    <a href="{% url 'members:logout' %}" class="btn btn-outline-success my-2 my-sm-0" role="button">
-                        Выйти
+                    <a class="btn" href="{% url 'members:profile' %}" style='color:green' type="submit">Профиль</a>
+                    <a href="{% url 'blog:create_post' %}" class="btn btn-outline-success my-2 my-sm-0" role="button">
+                        Поделиться с миром
                     </a>
                 </div>
                 {% else %}

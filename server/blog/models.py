@@ -23,13 +23,42 @@ class Post(models.Model):
     created = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(auto_now=True)
     status = models.CharField(max_length=10, choices=STATUS_CHOICES, default='draft')
+    preview_image = models.ImageField(upload_to="posts/preview/", default="posts/preview/default.jpg")
+    post_views = models.IntegerField(default=0)
+
+    @property
+    def views_count(self):
+        return PostViews.objects.filter(post=self).count()
+
+    def get_name_tags(self):
+        tags = []
+        for tag in self.tags.all():
+            tags.append(tag.name)
+        return tags
 
     def save(self, *args, **kwargs):
-        self.slug = unique_slugify(self.title)
+        if not self.slug:
+            self.slug = unique_slugify(self.title)
         super(Post, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
+
+
+class PostViews(models.Model):
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    def save(self, *args, **kwargs):
+        post = self.post
+        post.post_views = post.post_views + 1
+        post.save()
+        super(PostViews, self).save(*args, **kwargs)
+
+
+class BaseImage(models.Model):
+    image = models.ImageField(upload_to="base/images/")
+    name = models.CharField(max_length=50)
 
 
 class Image(models.Model):

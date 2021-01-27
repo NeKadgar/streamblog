@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<div class="container posts_list">
+    {% if tag %}
+    <div class="tag_banner">"{{tag|title}}"</div>
+    {% endif %}
+    <div class="row">
+        <div class="col-8">
+            <h3>Недавние:</h3>
+            {% for post in posts %}
+            <div class="profile__post">
+                <a class="link" href="{% url 'blog:post' post_slug=post.slug %}">
+                <div class="post_image__crop">
+                    <img src="{{ post.preview_image.url }}" width="100%">
+                </div>
+                </a>
+                <a href="{% url 'blog:post' post_slug=post.slug %}"><h1>{{ post.title }}</h1></a>
+                <div class='description'>{{ post.description|truncatechars:250 }}</div>
+                <div class='author'><a class="profile_link" href="{% url 'members:profile' username=post.author.username %}">{{post.author|title}}</a> in test</div>
+                <div class='time'>{{post.created|date:"d M, Y"}} | 5 min read</div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-4">
+            <h3>Самые популярные:</h3>
+            {% for post in popular_posts %}
+            <a class="link" href="{% url 'blog:post' post_slug=post.slug %}">
+            <div class="card bg-dark text-white" style="margin-top: 40px;">
+              <img src="{{ post.preview_image.url }}" class="card-img" alt="...">
+              <div class="card-img-overlay">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.description|truncatechars:80 }}</p>
+                <p class="card-text">Last updated 3 mins ago</p>
+              </div>
+            </div>
+            </a>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
+

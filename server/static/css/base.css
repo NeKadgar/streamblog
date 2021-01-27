@@ -1,0 +1,238 @@
+.post_tags {
+    margin-top: 10px;
+}
+.save_btn {
+    width: 100%;
+}
+.profile_link {
+    color:black;
+    text-decoration: underline;
+}
+.card-title {
+    cursor: pointer;
+}
+.card-title:hover {
+    color: grey;
+}
+.link {
+    color:black;
+}
+.link:hover {
+    text-decoration: none;
+    color: grey;
+}
+.profile_link:hover {
+    text-decoration: none;
+    color: grey;
+}
+.small-post {
+    display: flex;
+    margin-bottom: 10px;
+}
+.sm-post {
+    display: flex;
+    margin-top: 15px;
+}
+.small-img {
+    max-width: 200px;
+    margin-right: 10px;
+}
+.author{
+  font-size: 14px;
+  margin-top: 10px;
+}
+.time{
+  font-size: 12px;
+  color: #9691b3;
+}
+.small-post {
+    margin-bottom: 10px;
+}
+.small-title {
+  font-size: 18px;
+  cursor: pointer;
+}
+.description{
+  color: #9691b3;
+  font-size: 14px;
+}
+.title {
+  font-size: 24px;
+  cursor: pointer;
+}
+.title:hover {
+  color: grey;
+}
+
+.inline_tag {
+  display: inline-block;
+  margin:10px;
+  cursor: pointer;
+  text-decoration: none;
+}
+.inline_tag  a {
+    color: grey!important;
+    text-decoration: none;
+}
+.inline_tag  a:hover {
+    color: black!important;
+    text-decoration: none;
+}
+.posts_list {
+    margin-top: 40px;
+}
+.tag_banner {
+    overflow: hidden;
+    background-color: grey;
+    color: white;
+    height: 5em;
+    text-align: center;
+    line-height: 5em;
+    font-size: 40px;
+    font-weight: 900;
+    margin-bottom: 50px;
+}
+.inline_tag:hover {
+    color: grey;
+}
+.profile__post a {
+    color: black;
+}
+.tags {
+    margin-bottom: 30px;
+}
+.tags a:hover {
+    text-decoration: none;
+}
+.tag {
+    display: inline-block;
+    background-color: #28a745;
+    border-radius: 9px;
+    padding: 0 10px 3px 10px;
+    color: white;
+    font-size: 12px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+.tag:hover {
+    background-color: #6aca80;
+}
+.profile__post a:hover {
+    color: grey;
+    text-decoration: none;
+
+}
+.main__tags {
+    text-align: center;
+}
+.main__taglist {
+    margin-top: 15px;
+    margin-bottom: 20px;
+}
+.profile__username {
+    font-weight: 900;
+}
+.profile {
+    margin-top: 35px;
+    padding-bottom: 35px;
+    border-bottom: 1px solid grey;
+    display: flex;
+}
+.profile__image {
+    height: 110px;
+    width: 110px;
+    min-width: 110px;
+    border-radius: 100px;
+    border: 5px solid white;
+}
+.profile__banner {
+    height: 200px;
+    background-color: grey;
+}
+.profile__info {
+    margin-left: 10px;
+    width: 100%;
+    display:flex;
+    justify-content: space-between;
+}
+.profile__post {
+    margin-top: 40px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid black;
+}
+.post_image__crop {
+    width: 100%;
+    height: auto;
+    max-height: 20rem;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.post_image__small_crop {
+    height: auto;
+    max-height: 7rem;
+    overflow: hidden;
+    border: 1px solid rgba(0,0,0,.125);
+    border-radius: .25rem;
+}
+.smalld {
+    min-width: 150px;
+}
+.post_image__small_crop img {
+    width: 100%;
+}
+.post_image__crop img {
+    width: 100%;
+}
+.small_title {
+    font-size: 18px;
+}
+.post_image__lil_crop img {
+    width: 100%;
+    height: 10rem;
+}
+.random {
+    margin-top: 50px;
+    padding-top: 30px;
+    border-top: 2px solid #9691b3;
+}
+
+@media (max-width: 640px) {
+    .sm-poster{
+        min-width: 300px;
+        margin-bottom: 30px;
+        margin-top: 30px;
+    }
+    .smalld {
+        min-width: auto;
+    }
+    .profile__info {
+        margin-left: 10px;
+        width: 100%;
+        display:block;
+        justify-content: space-between;
+    }
+    .col-8 {
+        margin-left: 0!important;
+    }
+    .col-6 {
+        margin-left: 0!important;
+    }
+    .big-post {
+        min-width: 100%;
+    }
+    .small-post {
+        min-width: 300px;
+    }
+    .small-img {
+        width: 120px;
+        min-width: 120px;
+        margin-right: 10px;
+    }
+}
+.card-img-overlay {
+	background-color:rgba(0,0,0,.5);
+}
+.card-img-overlay:hover {
+	background-color:rgba(0,0,0,.47);
+}

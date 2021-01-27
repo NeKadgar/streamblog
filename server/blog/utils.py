@@ -3,6 +3,7 @@ from unidecode import unidecode
 from django.utils import timezone
 
 
+
 def unique_slugify(title):
     slug = slugify(unidecode(title))
     return "{}-{}".format(slug, timezone.now().strftime("%j%H%M%S%f"))
@@ -55,3 +56,7 @@ def convert_editorjs_to_html(json):
 def get_presave_info(content):
     print(content)
     return 1,2
+
+
+def get_tags():
+    pass

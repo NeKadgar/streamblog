@@ -1,0 +1,12 @@
+
+          {% for post in recent_posts %}
+            <div class="sm-post">
+            <div class="small-img post_image__small_crop"><img src="{{ post.preview_image.url }}" width="100%"></div>
+            <div class="">
+              <div class='small_title'>{{ post.title|truncatechars:125 }}</div>
+              <div class='description'>{{ post.description|truncatechars:250 }}</div>
+              <div class='author'>{{post.author|title}} in test</div>
+              <div class='time'>Jun 2, 2016 | 5 min read</div>
+            </div>
+          </div>
+          {% endfor %}

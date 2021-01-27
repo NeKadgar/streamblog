@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Profile
+from members.models import Profile, UserLink
 
 
 # Register your models here.
@@ -7,3 +7,6 @@ from .models import Profile
 @admin.register(Profile)
 class ProfileAdmin(admin.ModelAdmin):
     list_display = ["user"]
+
+
+admin.site.register(UserLink)

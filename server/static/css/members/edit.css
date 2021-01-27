@@ -1,0 +1,54 @@
+.edit_profile {
+    z-index:10000;
+    width: 100%;
+    top: 0;
+    position: fixed;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: -webkit-linear-gradient(left, #ffffff, #0000004a);
+    font-family: 'Nunito', sans-serif;
+}
+
+.popup_form {
+    position: fixed;
+
+    width: 900px;
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: #fff;
+    box-shadow: 0 19px 38px rgba(0, 0, 0, 0.30), 0 15px 12px rgba(0, 0, 0, 0.22);
+    padding: 50px 70px 50px 70px;
+}
+
+.popup_form h2 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+@media (max-width: 1000px) {
+    .popup_form {
+        width: auto;
+    }
+}
+@media (max-width: 640px) {
+    .popup_form {
+        width: 100%;
+        top: 0;
+        height: 100vh; /* viewport height */
+        padding: 50px 20px;
+
+        bottom:0;
+    }
+    .form_bio {
+        min-width: 100%;
+    }
+    .form_media {
+        margin-top: 15px;
+        min-width: 100%;
+    }
+}
+.save_btn {
+    width: 100%;
+    margin-top: 30px!important;
+}

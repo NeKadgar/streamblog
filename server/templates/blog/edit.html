@@ -11,10 +11,10 @@
 <div class="container editor">
     <form method="post" name="qwe">
 		{% csrf_token %}
-        <input type="text" name="title" placeholder="Заголовок..." id="post-title" class="editor__title ce-block__content">
+        <input type="text" name="title" value="{{ post.title }}" placeholder="Заголовок..." id="post-title" class="editor__title ce-block__content">
         <div id="editorjs" name="content"></div>
     </form>
-    <button id="saveButton">Save</button>
+    <button id="saveButton" class="btn btn-outline-success my-2 my-sm-0 save_btn">Продолжить</button>
 </div>
 {% endblock %}
 
@@ -38,8 +38,10 @@
 {% block domready %}
 const saveButton = document.getElementById('saveButton');
 
-
 const editor = new EditorJS({
+    {% if content %}
+    data: {{ content|safe }},
+    {% endif %}
 	holder: 'editorjs',
 	tools: {
         image: {
@@ -69,7 +71,7 @@ const editor = new EditorJS({
         },
         endpoints: {
           byFile: '{% url "blog:upload_image" %}', // Your backend file uploader endpoint
-          byUrl: 'http://localhost:8008/fetchUrl', // Your endpoint that provides uploading by Url
+          byUrl: '{% url "blog:upload_image" %}', // Your endpoint that provides uploading by Url
         }
       }
     },

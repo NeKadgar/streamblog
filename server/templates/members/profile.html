@@ -1,0 +1,121 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block content %}
+<div class="profile__banner" style="background-image: url({{ profile.banner.url }});   background-repeat: no-repeat;
+  background-position: center;">
+
+</div>
+<div class="container">
+    <div class="profile">
+        <div class="profile__image" >
+            <img width="100%" height="100%" src="{{ profile.photo.url }}">
+        </div>
+        <div class="profile__info">
+                <div class="">
+                    <h1 class="profile__username">{{ profile.get_profile_name|title }}</h1>
+                    <p>{{followers}} подписчиков</p>
+
+                </div>
+                <div class="" style="line-height: 3em;">
+                    {% if request.user.is_anonymous %}
+                        <a href="{% url 'members:login' %}" class="btn btn-success my-sm-0">Подписаться</a>
+                    {% elif request.user == profile.user %}
+                        <button class="btn btn-secondary my-sm-0" id="edit_profile"> Редактировать </button>
+                    {% elif is_follower %}
+                        <button class="btn btn-secondary my-sm-0" id="unsubscribe"> Вы подписаны </button>
+                    {% else %}
+                        <button class="btn btn-success my-sm-0" id="subscribe"> Подписаться </button>
+                    {% endif %}
+                </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-8">
+            {% for post in posts %}
+            <div class="profile__post">
+                <a class="link" href="{% url 'blog:post' post_slug=post.slug %}">
+                <div class="post_image__crop">
+                    <img src="{{ post.preview_image.url }}"  width="100%">
+                </div>
+                </a>
+                <a href="{% url 'blog:post' post_slug=post.slug %}"><h2>{{ post.title }}</h2></a>
+                <div class='description'>{{ post.description|truncatechars:250 }}</div>
+                <div class='author'><a class="profile_link" href="{% url 'members:profile' username=post.author.username %}">{{post.author|title}}</a> in test</div>
+                <div class='time'>{{post.created|date:"d M, Y"}} | 5 min read</div>
+            </div>
+            {% endfor %}
+        </div>
+        <div class="col-4">
+            {% if profile.bio %}
+            <h4 style="margin-top: 30px">О себе:</h4>
+            <p>{{ profile.bio }}</p>
+            {% endif %}
+            {% if popular_posts %}
+            <h4 style="margin-top: 30px">Самые популярные:</h4>
+            {% for post in popular_posts %}
+            <a class="link" href="{% url 'blog:post' post_slug=post.slug %}">
+            <div class="card bg-dark text-white" style="margin-top: 30px;">
+              <img src="{{ post.preview_image.url }}" class="card-img" alt="...">
+              <div class="card-img-overlay">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.description|truncatechars:80 }}</p>
+                <p class="card-text">Last updated 3 mins ago</p>
+              </div>
+            </div>
+            </a>
+            {% endfor %}
+            {% endif %}
+            <div></div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
+
+
+{% block domready %}
+if ($("#subscribe").length > 0) {
+    $("#subscribe")[0].addEventListener('click', function()
+        {
+            $.ajax({
+              url: "{% url 'members:follow' username=profile.user.username %}",
+              success: function(data){
+                document.location.reload();
+              }
+            });
+        }
+    );
+}
+
+if ($("#unsubscribe").length > 0) {
+    $("#unsubscribe")[0].addEventListener('click', function()
+        {
+            $.ajax({
+              url: "{% url 'members:unfollow' username=profile.user.username %}",
+              success: function(data){
+                document.location.reload();
+              }
+            });
+        }
+    );
+}
+
+const edit_btn = document.getElementById('edit_profile');
+
+edit_btn.addEventListener('click', function () {
+		$.ajax({
+        url: '',
+        type: 'POST',
+        statusCode: {
+            200: function(msg) {
+                $("#popup").append(msg.responseText);
+            }
+        },
+        dataType: 'json',
+        });
+});
+
+
+{% endblock %}

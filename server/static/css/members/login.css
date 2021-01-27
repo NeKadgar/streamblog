@@ -170,7 +170,7 @@ input, button{
   top: 0;
   width: 900px;
   height: 100%;
-  background-image: url(images/bg.jpg);
+  background-image: url(/media/base/images/derek-thomson-TWoL-QCZubY-unsplash.jpg);
   background-size: cover;
   transition: -webkit-transform 1.2s ease-in-out;
   transition: transform 1.2s ease-in-out, -webkit-transform 1.2s ease-in-out;

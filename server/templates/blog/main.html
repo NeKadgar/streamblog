@@ -1,5 +1,128 @@
 {% extends 'base.html' %}
+{% load static %}
 
 {% block content %}
-123
+<div>
+  <div class="main__taglist">
+    <ul class='container main__tags'>
+      {% for tag in tags %}
+      <li class='inline_tag'>
+        <a href="{% url 'blog:tag_view' tag=tag %}">
+          {{tag|title}}
+        </a>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  <div class="container">
+    <div class="row recommendation">
+      <div class="col-3 big-post">
+          <a href="{% url 'blog:post' post_slug=recommend_posts.left.slug %}">
+            <div class="post_image__crop">
+              <img src="{{ recommend_posts.left.preview_image.url }}" width="100%">
+            </div>
+          </a>
+        <a class="link" href="{% url 'blog:post' post_slug=recommend_posts.left.slug %}">
+        <div class='title'>{{ recommend_posts.left.title|truncatechars:80 }}</div>
+        </a>
+        <div class='description'>{{ recommend_posts.left.description|truncatechars:120 }}</div>
+        <div class='author'><a class="profile_link" href="{% url 'members:profile' username=recommend_posts.left.author.username %}">{{recommend_posts.left.author|title}}</a> in test</div>
+        <div class='time'>{{recommend_posts.left.created|date:"d M, Y"}} | 5 min read</div>
+      </div>
+      <div class="col-6 sm-poster">
+        {% for post in recommend_posts.middle %}
+          <div class="small-post">
+            <a class="link" href="{% url 'blog:post' post_slug=post.slug %}">
+            <div class="small-img post_image__small_crop"><img src="{{ post.preview_image.url }}" width="100%"></div>
+            </a>
+            <div class="">
+              <a class="link" href="{% url 'blog:post' post_slug=post.slug %}">
+              <div class='small_title'>{{ post.title|truncatechars:37 }}</div>
+              </a>
+              <div class='description'>{{ post.description|truncatechars:80 }}</div>
+              <div class='author'><a class="profile_link" href="{% url 'members:profile' username=post.author.username %}">{{post.author|title}}</a> in test</div>
+              <div class='time'>{{post.created|date:"d M, Y"}} | 5 min read</div>
+            </div>
+          </div>
+        {% endfor %}
+      </div>
+      <div class="col-3 big-post">
+        <a class="link" href="{% url 'blog:post' post_slug=recommend_posts.right.slug %}">
+        <div class="post_image__crop">
+          <img src="{{ recommend_posts.right.preview_image.url }}" width="100%">
+        </div>
+        </a>
+        <a class="link" href="{% url 'blog:post' post_slug=recommend_posts.right.slug %}">
+        <div class='title'>{{ recommend_posts.right.title|truncatechars:80 }}</div>
+        </a>
+        <div class='description'>{{ recommend_posts.right.description|truncatechars:120 }}</div>
+        <div class='author'><a class="profile_link" href="{% url 'members:profile' username=recommend_posts.right.author.username %}">{{recommend_posts.right.author|title}}</a> in test</div>
+        <div class='time'>{{recommend_posts.right.created|date:"d M, Y"}} | 5 min read</div>
+      </div>
+    </div>
+    <div class="random" id="posts_list">
+      <div class="row">
+        <div class="col-8" id="recent_list">
+          <h2 style="margin-bottom: 40px">Недавние:</h2>
+          {% for post in recent_posts %}
+            <div class="sm-post">
+              <a class="link" href="{% url 'blog:post' post_slug=post.slug %}">
+              <div class="small-img post_image__small_crop"><img src="{{ post.preview_image.url }}" width="100%"></div>
+              </a>
+            <div class="">
+              <a class="link" href="{% url 'blog:post' post_slug=post.slug %}">
+              <div class='small_title'>{{ post.title|truncatechars:125 }}</div>
+              </a>
+              <div class='description'>{{ post.description|truncatechars:250 }}</div>
+              <div class='author'><a class="profile_link" href="{% url 'members:profile' username=post.author.username %}">{{post.author|title}}</a> in test</div>
+              <div class='time'>{{post.created|date:"d M, Y"}} | 5 min read</div>
+            </div>
+          </div>
+          {% endfor %}
+        </div>
+        <div class="col-4">
+          <h2>Тренды недели:</h2>
+          {% for post in trends_posts %}
+          <a class="link" href="{% url 'blog:post' post_slug=post.slug %}">
+            <div class="card bg-dark text-white" style="margin-top: 40px;">
+              <img src="{{ post.preview_image.url }}" class="card-img" alt="...">
+              <div class="card-img-overlay">
+                <h5 class="card-title">{{ post.title }}</h5>
+                <p class="card-text">{{ post.description|truncatechars:80 }}</p>
+                <p class="card-text">Опубликовано {{post.created|date:"d b, Y"}}</p>
+              </div>
+            </div>
+          </a>
+          {% endfor %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
+
+
+{% block domready %}
+  var page = 1;
+  var empty_page = false;
+  var block_request = false;
+
+  $(window).scroll(function() {
+    var margin = $(document).height() - $(window).height() - 200;
+    if  ($(window).scrollTop() > margin && empty_page == false && block_request == false) {
+     block_request = true;
+      page += 1;
+      $.get('?page=' + page, function(data) {
+      console.log(data);
+       if(data == '') {
+          empty_page = true;
+        }
+        else {
+          block_request = false;
+          console.log(data);
+          $('#recent_list').append(data);
+        }
+      });
+    }
+  });
 {% endblock %}

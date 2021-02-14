@@ -36,6 +36,10 @@ def convert_editorjs_to_html(json):
         elif block["type"] == "codeBox":
             html += "<div class='codeBoxTextArea hljs'>{}</div>".format(block["data"]["code"])
         elif block["type"] == "image":
+            try:
+                image_url = block["data"]["file"]["url"]
+            except:
+                image_url = "https://www.ledr.com/colours/grey.jpg"
             html += "<div class='cdx-block image-tool image-tool--filled {} {} {}'>" \
                     "<div class='image-tool__image'>" \
                     "<img class='image-tool__image-picture' src='{}'>" \
@@ -46,7 +50,7 @@ def convert_editorjs_to_html(json):
                         "image-tool--withBackground" if block["data"]["withBackground"] else "",
                         "image-tool--stretched" if block["data"]["stretched"] else "",
                         "image-tool--withBorder" if block["data"]["withBorder"] else "",
-                        block["data"]["file"]["url"],
+                        image_url,
                         block["data"]["caption"]
                     )
 

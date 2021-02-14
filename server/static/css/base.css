@@ -180,6 +180,7 @@
 }
 .post_image__small_crop img {
     width: 100%;
+    min-width: 200px;
 }
 .post_image__crop img {
     width: 100%;

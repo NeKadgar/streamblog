@@ -24,7 +24,7 @@ class MainPage(View):
         from_date = datetime.datetime.now() - datetime.timedelta(days=7)
 
         trends_posts = Post.objects.filter(created__range=[from_date, datetime.datetime.now()]).order_by("-post_views")[:8]
-        tags = Post.tags.most_common()[:12]
+        tags = Post.tags.most_common()[:8]
         recommend_posts = SessionProfile(request).get_recommendations()
         recent_posts = Post.objects.all().order_by("-created")
 

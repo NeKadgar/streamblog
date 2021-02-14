@@ -232,6 +232,7 @@
     }
 }
 .card-img-overlay {
+    overflow: hidden;
 	background-color:rgba(0,0,0,.5);
 }
 .card-img-overlay:hover {

@@ -1,5 +1,5 @@
 from django.contrib.auth.models import User
-from django.http import HttpResponse
+from django.http import HttpResponse, RawPostDataException
 from django.shortcuts import render, redirect
 from django.views import View
 from django.shortcuts import get_object_or_404
@@ -122,14 +122,24 @@ class TagSortView(View):
 
 
 def image_upload(request, *args, **kwargs):
-    image = request.FILES["image"]
-    if request.method == "POST" and is_image_correct(image):
-        image = Image(author=request.user, image=request.FILES["image"])
-        image.save()
+    try:
+        data = json.loads(request.body)
+    except RawPostDataException:
+        data = {}
+    image = request.FILES.get("image", None)
+    image_url = data.get("image_url", None)
+    url = ""
+    if request.method == "POST":
+        if image and is_image_correct(image):
+            image = Image(author=request.user, image=request.FILES["image"])
+            image.save()
+            url = image.image.url
+        elif image_url:
+            url = image_url
     return JsonResponse({
-        "success": 1,
+        "success": 1 if url else 0,
         "file": {
-            "url": image.image.url,
+            "url": url,
         }
     })
 

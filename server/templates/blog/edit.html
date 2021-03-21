@@ -54,13 +54,32 @@ const editor = new EditorJS({
            * @return {Promise.<{success, file: {url}}>}
            */
           uploadByFile(file){
-        var fd = new FormData();
-        fd.append('image',file);
+            var fd = new FormData();
+            fd.append('image',file);
             // your own uploading logic here
             return $.ajax({
                 url: '{% url "blog:upload_image" %}',
                 type: 'post',
                 data: fd,
+                contentType: false,
+                processData: false,
+                success: function(response){
+                    return 1
+                },
+            })
+          },
+           /**
+           * Send URL-string to the server. Backend should load image by this URL and return an uploaded image data
+           * @param {string} url - pasted image URL
+           * @return {Promise.<{success, file: {url}}>}
+           */
+          uploadByUrl(url){
+            console.log("file:", url);
+            data = {"image_url": url};
+            return $.ajax({
+                url: '{% url "blog:upload_image" %}',
+                type: 'post',
+                data: JSON.stringify(data),
                 contentType: false,
                 processData: false,
                 success: function(response){
